@@ -74,9 +74,4 @@ def passwort_loeschen():
     alle_speichern(neue_liste)
     print("Gelöscht.")
 
-def csv_exportieren():
-    dateiname = input("Dateiname (leer = passwoerter.csv): ")
-    if not dateiname:
-        dateiname = "passwoerter.csv"
 
-    exportiere_csv(dateiname)
