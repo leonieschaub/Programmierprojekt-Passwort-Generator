@@ -1,6 +1,6 @@
-#Projekt Passwort-Generator
+# Projekt Passwort-Generator
 
-Ausführen des Programms
+## Ausführen des Programms
 
 1. Projektordner in **Visual Studio Code** öffnen  
 2. Terminal öffnen: Terminal → Neues Terminal
@@ -9,7 +9,7 @@ Ausführen des Programms
 ----------------------------------------------------------------------------
 
 
-***Menüfunktionen***
+## Menüfunktionen ##
 
 1. **Neues Passwort erstellen**
    - Benutzer gibt App und Nutzernamen ein
@@ -49,7 +49,7 @@ Ausführen des Programms
   ----------------------------------------------------------------------------
 
 
-***Passwort-Generator***
+## Passwort-Generator
 
 Der Generator unterstützt:
 - Kleinbuchstaben
@@ -62,7 +62,7 @@ Der Generator unterstützt:
 ----------------------------------------------------------------------------
 
 
-***Passwort-Stärke-Bewertung***
+## Passwort-Stärke-Bewertung
 
 Ein Passwort wird anhand dieser Kriterien bewertet:
 - Länge ≥ 12
@@ -74,8 +74,8 @@ Ein Passwort wird anhand dieser Kriterien bewertet:
 ----------------------------------------------------------------------------
 
 
-**Speicherung von Passwörtern**
+## Speicherung von Passwörtern
 passwoerter.txt
 
-**CSV-Export**
+## CSV-Export
 passwoerter.csv
