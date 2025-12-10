@@ -11,7 +11,7 @@
 
 ## Menüfunktionen ##
 
-1. ### Neues Passwort erstellen
+### 1. Neues Passwort erstellen
    - Benutzer gibt App und Nutzernamen ein
    - Passwortlänge 12-15 Zeichen
    - Auswahl von:
@@ -23,27 +23,27 @@
    - Passwort wird generiert und Passwortstärke wird angezeigt
    - Benutzer kann Passwort speichern oder ein neues Passwort generieren
 
-2. ### Passwort anzeigen
+### 2. Passwort anzeigen
   - Liste aller gespeicherten Passwörter anzeigen  
   - Passwort auswählen und anzeigen lassen  
   - Anzeige der Passwort-Stärke
 
-3. **Passwort prüfen**
+### 3. Passwort prüfen
    - Passwort eingeben
    - Das Programm prüft, ob es korrekt ist
   
-4. **Passwort ändern**
+### 4. Passwort ändern
    - Ein neues Passwort wird automatisch generiert
    - alter Eintrag wird überschrieben
   
-5. **Passwort löschen**
+### 5. Passwort löschen
    - Eintrag auswählen und löschen
 
- 6. **CSV-Export**
+### 6. CSV-Export
     - Exportiert alle Passwörter in passwoerter.csv
     - CSV öffnet automatisch (Windows)
 
-7. **Beenden**
+### 7. Beenden
    - Programm beenden
 
   ----------------------------------------------------------------------------
