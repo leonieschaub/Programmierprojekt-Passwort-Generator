@@ -1,10 +1,19 @@
 from passwort import *
 
-
+# HAUPTMENÜ
 def menue():
+
+# Hauptmenü des Passwort-Managers.
+
+#Ablauf:
+#- Das Menü läuft in einer Endlosschleife.
+#- Der Benutzer wählt eine der Funktionen aus:
+
     while True:
-        print("\nPasswort-Manager")
-        print("-" * 17)
+        print("-" * 40)
+        print("\nHerzlich Willkommen beim Passwort-Manager :)")
+        print("-" * 40)
+        print("Bitte wähle eine der folgenden Funktionen:")
         print("1) Neues Passwort")
         print("2) Passwort anzeigen")
         print("3) Passwort prüfen")
@@ -16,17 +25,25 @@ def menue():
 
         wahl = input("Option: ")
 
-        if wahl == "1": neues_passwort()
-        elif wahl == "2": passwort_anzeigen()
-        elif wahl == "3": passwort_pruefen()
-        elif wahl == "4": passwort_aendern()
-        elif wahl == "5": passwort_loeschen()
-        elif wahl == "6": exportiere_csv()
-        elif wahl == "7": 
+        if wahl == "1":
+            neues_passwort()
+        elif wahl == "2":
+            passwort_anzeigen()
+        elif wahl == "3":
+            passwort_pruefen()
+        elif wahl == "4":
+            passwort_aendern()
+        elif wahl == "5":
+            passwort_loeschen()
+        elif wahl == "6":
+            exportiere_csv()
+        elif wahl == "7":
             print("Auf Wiedersehen!")
-            break
+            break  # Programm wirklich beenden
         else:
-            print("Ungültige Eingabe. Bitte gültige Wahl eingeben. ")
+            print("Ungültige Eingabe. Bitte gültige Zahl eingeben.\n")
+            continue  # Zurück zum Menü
 
 
+# Programmstart
 menue()

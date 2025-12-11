@@ -1,10 +1,34 @@
 DATEI = "passwoerter.txt"
+    
+# Speichert einen neuen Passwort-Eintrag in der Passwortdatei.
+#  Parameter:
+#       applikation (str): Name der Anwendung/Website.
+#       benutzer (str): Benutzername oder E-Mail.
+#        pw (str): Zu speicherndes Passwort.
 
+# Ablauf:
+#        - Öffnet die Datei im Append-Modus.
+#        - Fügt einen neuen Eintrag in der Form 
+#         "Applikation | Benutzer | Passwort" hinzu.
+
+#   Rückgabe:
+#        None
 
 def speichern(applikation, benutzer, pw):
     with open(DATEI, "a") as f:
         f.write(f"{applikation} | {benutzer} | {pw}\n")
 
+
+#Lädt alle gespeicherten Passwörter aus der Datei.
+
+#Ablauf:
+# - Liest jede Zeile der Passwortdatei ein.
+# - Entfernt Zeilenumbrüche.
+# - Gibt eine Liste aller Einträge zurück.
+# - Falls die Datei nicht existiert, wird eine leere Liste zurückgegeben.
+
+#Rückgabe:
+#  list[str]: Liste aller gespeicherten Passwortzeilen.
 
 def lade_passwoerter():
     try:
@@ -14,6 +38,21 @@ def lade_passwoerter():
         return []
 
 
+#Exportiert alle gespeicherten Passwörter als CSV-Datei.
+
+#Ablauf:
+#   - Lädt zuerst alle Passwörter.
+#   - Erstellt eine Datei 'passwoerter.csv'
+#   - Schreibt die Daten in Spalten (Applikation, Benutzer, Passwort)
+#   - Öffnet die CSV-Datei automatisch unter Windows.
+
+#Besonderheiten:
+#   - Falls keine Daten vorhanden sind, wird eine Meldung ausgegeben.
+#   - Die CSV wird mit UTF-8 erstellt.
+# 
+# Rückgabe:
+#   None
+
 def exportiere_csv():
     import os
 
@@ -22,7 +61,6 @@ def exportiere_csv():
         print("Keine Passwörter vorhanden.")
         return
 
-    # Ordner, in dem DEINE Python-Datei liegt
     basis = os.path.dirname(os.path.abspath(__file__))
     datei = os.path.join(basis, "passwoerter.csv")
 
@@ -36,17 +74,47 @@ def exportiere_csv():
     print("Gespeichert unter:")
     print(datei)
 
-    # Datei automatisch öffnen (Windows)
     os.startfile(datei)
 
+#Überschreibt die Passwortdatei mit einer neuen Liste an Daten.
+
+#Parameter:
+# daten (list[str]): Liste der Zeilen, die gespeichert werden sollen.
+
+# Ablauf:
+# - Öffnet die Datei im Schreibmodus (löscht alte Inhalte).
+# - Schreibt alle übergebenen Zeilen neu in die Datei.
+
+#Rückgabe:
+#  None
 
 def alle_speichern(daten):
     with open(DATEI, "w") as f:
         for zeile in daten:
             f.write(zeile + "\n")
 
+ 
+# Zeigt alle gespeicherten Passwortzeilen an und erlaubt dem Benutzer,
+# einen Eintrag durch Eingabe einer Nummer auszuwählen.
 
-def eintrag_auswaehlen():
+#   Ablauf:
+#       - Lädt alle gespeicherten Passwörter.
+#       - Gibt sie als nummerierte Liste aus.
+#       - Benutzer wählt eine Nummer.
+#       - Eintrag wird in seine Bestandteile aufgeteilt:
+#          (Applikation, Benutzer, Passwort)
+
+#    Fehlerbehandlung:
+#      - Falls keine Einträge existieren -> Rückgabe: (None, None, None, daten)
+#      - Falls eine ungültige Nummer eingegeben wird -> ebenfalls None-Werte.
+
+#  Rückgabe:
+#           (applikation (str | None),
+#            benutzer (str | None),
+#            pw (str | None),
+#            daten (list[str]))  vollständige Datenliste
+
+def eintrag_auswaehlen(pw_anzeigen=False):
     daten = lade_passwoerter()
 
     if not daten:
@@ -63,6 +131,3 @@ def eintrag_auswaehlen():
     except:
         print("Ungültige Auswahl.")
         return None, None, None, daten
-
-
-
