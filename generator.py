@@ -21,7 +21,7 @@ import string
 #    Rückgabe:
 #        str: Das generierte Passwort.
 
-def passwort_generieren(laenge, lower=True, upper=True, digits=True, special=True, words=False):
+def passwort_generieren(laenge, lower=True, upper=True, digits=True, special=True, words=True):
     zeichen = ""
 
     if lower:
