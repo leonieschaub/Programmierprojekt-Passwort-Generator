@@ -9,7 +9,7 @@
 ----------------------------------------------------------------------------
 
 
-## Menüfunktionen ##
+## Menü ##
 
 ### 1. Neues Passwort erstellen
    - Benutzer gibt App und Nutzernamen ein
