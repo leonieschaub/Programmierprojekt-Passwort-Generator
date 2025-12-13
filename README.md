@@ -1,15 +1,26 @@
 # Projekt Passwort-Generator
+Dieses Projekt ist ein Passwort-Generator und Passwort-Manager, der sichere Passwörter erstellt, speichert und verwaltet.
+
+## Dateiübersicht
+menue.py
+passwort.py
+generator.py
+datei_manager.py
+passwoerter.txt
 
 ## Ausführen des Programms
 
-1. Projektordner in **Visual Studio Code** öffnen  
+1. Projektordner in Visual Studio Code öffnen  
 2. Terminal öffnen: Terminal → Neues Terminal
 3. Programm starten mit:
+```
+python menue.py
+```
 
 ----------------------------------------------------------------------------
 
 
-## Menü ##
+## Menü
 
 ### 1. Neues Passwort erstellen
    - Benutzer gibt App und Nutzernamen ein
@@ -75,7 +86,7 @@ Ein Passwort wird anhand dieser Kriterien bewertet:
 
 
 ## Speicherung von Passwörtern
-passwoerter.txt
+`passwoerter.txt`
 
 ## CSV-Export
-passwoerter.csv
+`passwoerter.csv`
