@@ -1,5 +1,5 @@
 # Import der benötigten Funktionen
-from datei_manager import speichern, eintrag_auswaehlen, alle_speichern, exportiere_csv
+from datei_manager import speichern, eintrag_auswaehlen, alle_speichern, exportiere_csv, lade_passwoerter
 from generator import passwort_generieren, passwort_starke
 
 
@@ -78,15 +78,36 @@ def passwort_anzeigen():
 #        - Ausgabe OK! oder FALSCH.
 
 def passwort_pruefen():
-    applikation, benutzer, pw, _ = eintrag_auswaehlen(pw_anzeigen=False)
+    applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation:
         return
 
+    # Alle passenden Passwörter sammeln
+    treffer = []
+    for zeile in daten:
+        app, ben, pw = zeile.split(" | ")
+        if app == applikation and ben == benutzer:
+            treffer.append(pw)
+
+    # Fehlerfälle
+    if len(treffer) == 0:
+        print("Kein Passwort für diesen Account gefunden.\n")
+        return
+
+    if len(treffer) > 1:
+        print("FEHLER: Für diesen Account existieren mehrere Passwörter!")
+        print("Bitte bereinige die Einträge, bevor du das Passwort prüfst.\n")
+        return
+
+    # Genau ein Passwort → prüfen
     eingabe = input(f"Passwort für {applikation} eingeben: ")
-    if eingabe == pw:
+
+    if eingabe == treffer[0]:
         print("OK!\n")
     else:
         print("FALSCH!\n")
+
+
 
 # PASSWORT ÄNDERN
 #Ändert das Passwort für einen gewählten Eintrag.

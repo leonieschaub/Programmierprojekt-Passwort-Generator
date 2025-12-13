@@ -122,12 +122,23 @@ def eintrag_auswaehlen(pw_anzeigen=False):
         return None, None, None, daten
 
     for i, eintrag in enumerate(daten, 1):
-        print(f"{i}) {eintrag}")
+        applikation, benutzer, pw = eintrag.split(" | ")
+
+        if pw_anzeigen:
+            print(f"{i}) {applikation} | {benutzer} | {pw}")
+        else:
+            print(f"{i}) {applikation} | {benutzer} | ********")
 
     try:
         nr = int(input("Nummer auswählen: "))
         applikation, benutzer, pw = daten[nr - 1].split(" | ")
-        return applikation, benutzer, pw, daten
+
+        if pw_anzeigen:
+            return applikation, benutzer, pw, daten
+        else:
+            return applikation, benutzer, None, daten
+
     except:
         print("Ungültige Auswahl.")
         return None, None, None, daten
+

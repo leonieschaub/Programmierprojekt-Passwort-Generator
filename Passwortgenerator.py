@@ -38,10 +38,10 @@ def menue():
         elif wahl == "6":
             exportiere_csv()
         elif wahl == "7":
-            print("Auf Wiedersehen!")
+            print("Auf Wiedersehen und bis bald!")
             break  # Programm wirklich beenden
         else:
-            print("Ungültige Eingabe. Bitte gültige Zahl eingeben.\n")
+            print("Ungültige Eingabe. Bitte Zahl von 1-7 ohne Leerzeichen eingeben.\n")
             continue  # Zurück zum Menü
 
 
