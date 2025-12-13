@@ -1,10 +1,4 @@
-# Import der benötigten Funktionen
-from datei_manager import speichern, eintrag_auswaehlen, alle_speichern, exportiere_csv, lade_passwoerter
-from generator import passwort_generieren, passwort_starke
-
-
 # NEUES PASSWORT ERSTELLEN
-def neues_passwort():
     
 #Erstellt ein neues Passwort für eine Applikation und speichert es.
 #Ablauf:
@@ -13,10 +7,17 @@ def neues_passwort():
 #   - Passwort wird generiert und angezeigt.
 #   - Benutzer kann Passwort speichern, neu generieren oder abbrechen.
     
+ # Import der benötigten Funktionen
+from datei_manager import speichern, eintrag_auswaehlen, alle_speichern, exportiere_csv, lade_passwoerter
+from generator import passwort_generieren, passwort_starke
+
+
+# NEUES PASSWORT ERSTELLEN
+def neues_passwort():
     applikation = input("Applikation: ")
     benutzer = input("Benutzer: ")
 
-# Passwortlänge validieren
+    # Passwortlänge validieren
     while True:
         try:
             laenge = int(input("Passwortlänge (12-15): "))
@@ -27,12 +28,58 @@ def neues_passwort():
         except ValueError:
             print("Bitte eine gültige Zahl eingeben.")
 
-# Passwortoptionen
-    lower = input("Kleinbuchstaben? (j/n): ").lower() == "j"
-    upper = input("Grossbuchstaben? (j/n): ").lower() == "j"
-    digits = input("Zahlen? (j/n): ").lower() == "j"
-    special = input("Sonderzeichen? (j/n): ").lower() == "j"
-    words = input("Wörter verwenden? (j/n): ").lower() == "j"
+    # Passwortoptionen
+    while True:
+        lower_input = input("Kleinbuchstaben? (j/n): ").lower()
+        if lower_input in ("j", "n"):
+            lower = lower_input == "j"
+            break
+        print("Bitte nur 'j' oder 'n' eingeben.")
+
+    while True:
+        upper_input = input("Grossbuchstaben? (j/n): ").lower()
+        if upper_input in ("j", "n"):
+            upper = upper_input == "j"
+            break
+        print("Bitte nur 'j' oder 'n' eingeben.")
+
+    while True:
+        digits_input = input("Zahlen? (j/n): ").lower()
+        if digits_input in ("j", "n"):
+            digits = digits_input == "j"
+            break
+        print("Bitte nur 'j' oder 'n' eingeben.")
+
+    while True:
+        special_input = input("Sonderzeichen? (j/n): ").lower()
+        if special_input in ("j", "n"):
+            special = special_input == "j"
+            break
+        print("Bitte nur 'j' oder 'n' eingeben.")
+
+    while True:
+        words_input = input("Wörter verwenden? (j/n): ").lower()
+        if words_input in ("j", "n"):
+            words = words_input == "j"
+            break
+        print("Bitte nur 'j' oder 'n' eingeben.")
+
+    # Passwort generieren & wiederholen
+    while True:
+        pw = passwort_generieren(laenge, lower, upper, digits, special, words)
+        print("\nPasswort:", pw)
+        print("Stärke:", passwort_starke(pw))
+
+        wahl = input("(s) speichern, (n) neu generieren, (a) abbrechen: ").lower()
+
+        if wahl == "s":
+            speichern(applikation, benutzer, pw)
+            print("Passwort gespeichert.\n")
+            return
+        elif wahl == "a":
+            print("Abgebrochen.\n")
+            return
+
 
 # Passwort generieren & wiederholen
     while True:
@@ -65,7 +112,6 @@ def passwort_anzeigen():
     applikation, benutzer, pw, _ = eintrag_auswaehlen(pw_anzeigen=True)
     if applikation:
         print(f"\nPasswort für {applikation} ({benutzer}): {pw}")
-        print("Stärke:", passwort_starke(pw))
         print()
 
 # PASSWORT PRÜFEN
@@ -103,10 +149,10 @@ def passwort_pruefen():
     eingabe = input(f"Passwort für {applikation} eingeben: ")
 
     if eingabe == treffer[0]:
+        print("Stärke:", passwort_starke(pw))
         print("OK!\n")
     else:
         print("FALSCH!\n")
-
 
 
 # PASSWORT ÄNDERN
@@ -142,11 +188,35 @@ def passwort_aendern():
 #    - Benutzer wählt einen Eintrag aus.
 #    - Eintrag wird gelöscht und Datei gespeichert.
 
-def passwort_loeschen():    
+def passwort_loeschen():
     applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation:
         return
 
+    # Bestätigung, ob wirklich gelöscht werden soll
+    bestaetigung = input(f"Willst du das Passwort für '{applikation}' wirklich löschen? (j/n): ").strip().lower()
+    if bestaetigung != 'j':
+        print("Löschen abgebrochen.\n")
+        return
+
+    # Passwort löschen
     neue_liste = [z for z in daten if not z.startswith(applikation)]
     alle_speichern(neue_liste)
-    print("Gelöscht.\n")
+    print("Das Passwort wurde gelöscht.\n")
+
+# Frage, ob ein neues Passwort generiert werden soll
+    while True:
+        neues_pw = input(
+            f"Willst du ein neues Passwort für '{applikation}' generieren? (j/n): "
+        ).strip().lower()
+
+        if neues_pw == 'j':
+            # Hier kannst du deine Passwort-Generierungsfunktion aufrufen
+            generiertes_passwort = passwort_generieren()
+            print(f"Neues Passwort für '{applikation}': {generiertes_passwort}\n")
+            break
+        elif neues_pw == 'n':
+            print("Kein neues Passwort generiert.\n")
+            break
+        else:
+            print("Ungültige Eingabe. Bitte gib 'j' für Ja oder 'n' für Nein ein.")
