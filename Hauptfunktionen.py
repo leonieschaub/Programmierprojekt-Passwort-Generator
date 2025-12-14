@@ -126,12 +126,30 @@ def passwort_loeschen():
     while True:
         bestaetigung = input(f"Willst du das Passwort für '{applikation}' wirklich löschen? (j/n): ").strip().lower()
         if bestaetigung == 'j':
+            # Passwort löschen
             neue_liste = [z for z in daten if not (z.startswith(applikation) and benutzer in z)]
             alle_speichern(neue_liste)
             print("Das Passwort wurde gelöscht.\n")
+
+            # Nachfragen, ob ein neues Passwort generiert werden soll
+            while True:
+                neu_pw = input(f"Willst du ein neues Passwort für '{applikation}' generieren? (j/n): ").strip().lower()
+                if neu_pw == 'j':
+                    # Neues Passwort generieren (Standardoptionen, können angepasst werden)
+                    neues_pw = passwort_generieren(12)
+                    speichern(applikation, benutzer, neues_pw)
+                    print(f"Neues Passwort für '{applikation}': {neues_pw}\n")
+                    break
+                elif neu_pw == 'n':
+                    print("Kein neues Passwort generiert.\n")
+                    break
+                else:
+                    print("Ungültige Eingabe. Bitte gib 'j' für Ja oder 'n' für Nein ein.")
             break
+
         elif bestaetigung == 'n':
             print("Löschen abgebrochen.\n")
             break
         else:
             print("Ungültige Eingabe. Bitte gib 'j' für Ja oder 'n' für Nein ein.")
+
