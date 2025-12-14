@@ -2,9 +2,7 @@
 from datei_manager import speichern, eintrag_auswaehlen, alle_speichern, exportiere_csv, lade_passwoerter
 from generator import passwort_generieren, passwort_starke
 
-# ==========================
 # NEUES PASSWORT ERSTELLEN
-# ==========================
 def neues_passwort():
     # Applikation abfragen
     while True:
@@ -64,9 +62,7 @@ def neues_passwort():
             print("Abgebrochen.\n")
             break
 
-# ==========================
 # PASSWORT ANZEIGEN
-# ==========================
 def passwort_anzeigen():
     applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation or not benutzer:
@@ -82,9 +78,7 @@ def passwort_anzeigen():
     else:
         print("Passwort konnte nicht gefunden werden.\n")
 
-# ==========================
 # PASSWORTSTÄRKE PRÜFEN
-# ==========================
 def passwort_pruefen():
     applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation or not benutzer:
@@ -100,9 +94,7 @@ def passwort_pruefen():
     else:
         print("Passwort konnte nicht gefunden werden.\n")
 
-# ==========================
 # PASSWORT ÄNDERN
-# ==========================
 def passwort_aendern():
     applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation or not benutzer:
@@ -123,9 +115,7 @@ def passwort_aendern():
     alle_speichern(neue_liste)
     print("Passwort geändert.\n")
 
-# ==========================
 # PASSWORT LÖSCHEN
-# ==========================
 def passwort_loeschen():
     applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation or not benutzer:

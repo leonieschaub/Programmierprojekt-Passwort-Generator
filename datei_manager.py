@@ -3,9 +3,7 @@ import os
 # Datei, in der Passwörter gespeichert werden
 DATEI = "passwoerter.txt"
 
-# ==========================
 # Funktion: speichern
-# ==========================
 # Speichert einen neuen Passwort-Eintrag in der Datei.
 # Parameter:
 #   - applikation: Name der Anwendung/Website
@@ -16,9 +14,7 @@ def speichern(applikation, benutzer, pw):
     with open(DATEI, "a", encoding="utf-8") as f:
         f.write(f"{applikation} | {benutzer} | {pw}\n")
 
-# ==========================
 # Funktion: lade_passwoerter
-# ==========================
 # Lädt alle gespeicherten Passwörter aus der Datei.
 # Rückgabe: Liste von Einträgen (str)
 def lade_passwoerter():
@@ -30,9 +26,7 @@ def lade_passwoerter():
         # Falls Datei nicht existiert, leere Liste zurückgeben
         return []
 
-# ==========================
 # Funktion: exportiere_csv
-# ==========================
 # Exportiert alle Passwörter als CSV-Datei
 def exportiere_csv():
     # Alle Passwörter laden
@@ -63,9 +57,7 @@ def exportiere_csv():
     if os.name == 'nt':
         os.startfile(datei)
 
-# ==========================
 # Funktion: alle_speichern
-# ==========================
 # Überschreibt die Passwortdatei mit einer neuen Liste von Einträgen
 # Parameter:
 #   - daten: Liste von Strings im Format "Applikation | Benutzer | Passwort"
@@ -74,9 +66,7 @@ def alle_speichern(daten):
         for zeile in daten:
             f.write(zeile + "\n")
 
-# ==========================
 # Funktion: eintrag_auswaehlen
-# ==========================
 # Zeigt alle gespeicherten Einträge nummeriert an und gibt den gewählten zurück
 # Parameter:
 #   - pw_anzeigen: bool, ob das Passwort in der Liste sichtbar sein soll
