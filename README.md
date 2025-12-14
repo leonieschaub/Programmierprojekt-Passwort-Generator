@@ -42,7 +42,7 @@ python menue.py
   - Passwort auswählen und anzeigen lassen  
 
 ### 3. Passwort prüfen
-   - Passwort auswählen
+   - Bestehendes Passwort auswählen
    - Das Programm prüft Passwort auf Stärke
   
 ### 4. Passwort ändern
