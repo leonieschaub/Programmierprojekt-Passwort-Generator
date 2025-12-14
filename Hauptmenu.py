@@ -41,7 +41,7 @@ def menue():
             print("Auf Wiedersehen und bis bald!")
             break  # Programm wirklich beenden
         else:
-            print("Ungültige Eingabe. Bitte Zahl von 1-7 ohne Leerzeichen eingeben.\n")
+            print("Ungültige Eingabe. Bitte eine Zahl von 1-7 eingeben.\n")
             continue  # Zurück zum Menü
 
 

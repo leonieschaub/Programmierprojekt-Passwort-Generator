@@ -14,8 +14,19 @@ from generator import passwort_generieren, passwort_starke
 
 # NEUES PASSWORT ERSTELLEN
 def neues_passwort():
-    applikation = input("Applikation: ")
-    benutzer = input("Benutzer: ")
+    # Applikation abfragen, darf nicht leer sein
+    while True:
+        applikation = input("Applikation: ").strip()
+        if applikation:
+            break
+        print("Fehler: Applikation darf nicht leer sein.")
+
+    # Benutzer abfragen, darf nicht leer sein
+    while True:
+        benutzer = input("Benutzer: ").strip()
+        if benutzer:
+            break
+        print("Fehler: Benutzer darf nicht leer sein.")
 
     # Passwortlänge validieren
     while True:
@@ -109,50 +120,56 @@ def neues_passwort():
     # Passwort beim Anzeigen sichtbar
 
 def passwort_anzeigen():
-    applikation, benutzer, pw, _ = eintrag_auswaehlen(pw_anzeigen=True)
-    if applikation:
-        print(f"\nPasswort für {applikation} ({benutzer}): {pw}")
-        print()
-
-# PASSWORT PRÜFEN
-
-#    Prüft, ob ein eingegebenes Passwort mit dem gespeicherten Passwort übereinstimmt.
-#    Ablauf:
-#        - Benutzer wählt einen Eintrag aus.
-#        - Passwort wird NICHT angezeigt.
-#        - Benutzer gibt Passwort ein.
-#        - Ausgabe OK! oder FALSCH.
-
-def passwort_pruefen():
+    # Eintrag auswählen, Passwörter zunächst nicht sichtbar
     applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
     if not applikation:
         return
 
-    # Alle passenden Passwörter sammeln
-    treffer = []
+    # Das ausgewählte Passwort aus den Daten extrahieren
+    pw = None
     for zeile in daten:
-        app, ben, pw = zeile.split(" | ")
+        app, ben, passwort = zeile.split(" | ")
         if app == applikation and ben == benutzer:
-            treffer.append(pw)
+            pw = passwort
+            break
 
-    # Fehlerfälle
-    if len(treffer) == 0:
-        print("Kein Passwort für diesen Account gefunden.\n")
-        return
-
-    if len(treffer) > 1:
-        print("FEHLER: Für diesen Account existieren mehrere Passwörter!")
-        print("Bitte bereinige die Einträge, bevor du das Passwort prüfst.\n")
-        return
-
-    # Genau ein Passwort → prüfen
-    eingabe = input(f"Passwort für {applikation} eingeben: ")
-
-    if eingabe == treffer[0]:
-        print("Stärke:", passwort_starke(pw))
-        print("OK!\n")
+    if pw:
+        print(f"\nPasswort für {applikation} ({benutzer}): {pw}")
+        print()
     else:
-        print("FALSCH!\n")
+        print("Passwort konnte nicht gefunden werden.\n")
+
+
+# PASSWORT PRÜFEN
+
+#    Prüft, ob ein eingegebenes Passwort 
+#    Ablauf:
+#        - Benutzer wählt einen Eintrag aus.
+#        - Passwort wird NICHT angezeigt.
+#        - Stärke des Passwortes wird angezeigt
+
+def passwort_pruefen():
+    # Eintrag auswählen, Passwort wird nicht in der Liste angezeigt
+    applikation, benutzer, _, daten = eintrag_auswaehlen(pw_anzeigen=False)
+    if not applikation:
+        return
+
+    # Das gespeicherte Passwort aus den Daten extrahieren
+    pw = None
+    for zeile in daten:
+        app, ben, passwort = zeile.split(" | ")
+        if app == applikation and ben == benutzer:
+            pw = passwort
+            break
+
+    if pw:
+        # Statt Passwortprüfung: Stärke anzeigen
+        print(f"\nPasswort für {applikation} ({benutzer}) hat folgende Stärke:")
+        print(passwort_starke(pw))
+        print()
+    else:
+        print("Passwort konnte nicht gefunden werden.\n")
+
 
 
 # PASSWORT ÄNDERN
@@ -194,29 +211,16 @@ def passwort_loeschen():
         return
 
     # Bestätigung, ob wirklich gelöscht werden soll
-    bestaetigung = input(f"Willst du das Passwort für '{applikation}' wirklich löschen? (j/n): ").strip().lower()
-    if bestaetigung != 'j':
-        print("Löschen abgebrochen.\n")
-        return
-
-    # Passwort löschen
-    neue_liste = [z for z in daten if not z.startswith(applikation)]
-    alle_speichern(neue_liste)
-    print("Das Passwort wurde gelöscht.\n")
-
-# Frage, ob ein neues Passwort generiert werden soll
     while True:
-        neues_pw = input(
-            f"Willst du ein neues Passwort für '{applikation}' generieren? (j/n): "
-        ).strip().lower()
-
-        if neues_pw == 'j':
-            # Hier kannst du deine Passwort-Generierungsfunktion aufrufen
-            generiertes_passwort = passwort_generieren()
-            print(f"Neues Passwort für '{applikation}': {generiertes_passwort}\n")
+        bestaetigung = input(f"Willst du das Passwort für '{applikation}' wirklich löschen? (j/n): ").strip().lower()
+        if bestaetigung == 'j':
+            # Passwort löschen
+            neue_liste = [z for z in daten if not (z.startswith(applikation) and benutzer in z)]
+            alle_speichern(neue_liste)
+            print("Das Passwort wurde gelöscht.\n")
             break
-        elif neues_pw == 'n':
-            print("Kein neues Passwort generiert.\n")
+        elif bestaetigung == 'n':
+            print("Löschen abgebrochen.\n")
             break
         else:
             print("Ungültige Eingabe. Bitte gib 'j' für Ja oder 'n' für Nein ein.")
