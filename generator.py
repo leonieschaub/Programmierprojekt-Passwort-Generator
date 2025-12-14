@@ -21,7 +21,7 @@ def passwort_generieren(laenge, lower=True, upper=True, digits=True, special=Tru
     if lower:
         zeichen += string.ascii_lowercase        # Kleinbuchstaben hinzufügen
     if upper:
-        zeichen += string.ascii_uppercase        # Großbuchstaben hinzufügen
+        zeichen += string.ascii_uppercase        # Grossbuchstaben hinzufügen
     if digits:
         zeichen += string.digits                 # Zahlen hinzufügen
     if special:
