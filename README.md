@@ -50,6 +50,7 @@ python menue.py
   
 ### 5. Passwort löschen
    - Eintrag auswählen und löschen
+   - Sicherheitsabfrage, ob Passowort wirklich gelöst werden soll
 
 ### 6. CSV-Export
     - Exportiert alle Passwörter in passwoerter.csv
