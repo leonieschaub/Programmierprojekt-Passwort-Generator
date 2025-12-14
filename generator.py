@@ -72,7 +72,7 @@ def passwort_generieren(laenge, lower=True, upper=True, digits=True, special=Tru
     if not zeichen:
         raise ValueError("Keine Zeichen zum Generieren ausgewählt!")
     
-    # Passwort generieren und '|' ausschließen
+    # Passwort generieren und '|' ausschliessen
     while True:
         pw = ''.join(random.choice(zeichen) for _ in range(laenge))
         if '|' not in pw:
@@ -98,4 +98,5 @@ def passwort_starke(pw):
         return "mittel"
     elif punkte >= 4:
         return "stark"
+
 
