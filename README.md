@@ -30,14 +30,13 @@ python menue.py
       - Grossbuchstaben
       - Zahlen
       - Sonderzeichen
-      - Wörter als Passwort
+      - Wörter
    - Passwort wird generiert und Passwortstärke wird angezeigt
-   - Benutzer kann Passwort speichern oder ein neues Passwort generieren
+   - Benutzer kann das Passwort speichern, generieren oder das Programm abbrechen
 
 ### 2. Passwort anzeigen
   - Liste aller gespeicherten Passwörter anzeigen  
   - Passwort auswählen und anzeigen lassen  
-  - Anzeige der Passwort-Stärke
 
 ### 3. Passwort prüfen
    - Passwort eingeben
@@ -67,7 +66,7 @@ Der Generator unterstützt:
 - Grossbuchstaben
 - Ziffern
 - Sonderzeichen
-- Wortbasierte Passwörter (z. B. „sternbaum123“)
+- Wortbasierte Passwörter aus vorgegebener Wörterliste
 - Passwortlänge: 12–15 Zeichen
 
 ----------------------------------------------------------------------------
