@@ -1,5 +1,5 @@
 # Projekt Passwort-Generator
-Dieses Projekt ist ein Passwortgenerator und /-manager, der sichere Passwörter erstellt, speichert und verwaltet.
+Dieses Projekt umfasst ein Passwortgenerator und /-manager, der sichere Passwörter erstellt, speichert und verwaltet.
 
 ## Dateiübersicht
 - `hauptfunktionen.py` – enthält alle Hauptfunktionen des Programms
