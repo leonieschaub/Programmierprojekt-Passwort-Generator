@@ -1,4 +1,4 @@
-# Projekt Passwort-Generator
+# Projekt Passwortgenerator/-manager
 Dieses Projekt umfasst ein Passwortgenerator und /-manager, der sichere Passwörter erstellt, speichert und verwaltet.
 
 ## Dateiübersicht
