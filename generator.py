@@ -1,9 +1,6 @@
 import random
 import string
 
-import random
-import string
-
 # Generiert ein Passwort anhand der angegebenen Kriterien
 # Parameter:
 #  laenge (int)   : gewünschte Länge des Passworts
@@ -101,3 +98,4 @@ def passwort_starke(pw):
         return "mittel"
     elif punkte >= 4:
         return "stark"
+
