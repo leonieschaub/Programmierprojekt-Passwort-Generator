@@ -41,8 +41,8 @@ python menue.py
   - Passwort auswählen und anzeigen lassen  
 
 ### 3. Passwort prüfen
-   - Passwort eingeben
-   - Das Programm prüft, ob es korrekt ist
+   - Passwort auswählen
+   - Das Programm prüft Passwort auf Stärke
   
 ### 4. Passwort ändern
    - Ein neues Passwort wird automatisch generiert
