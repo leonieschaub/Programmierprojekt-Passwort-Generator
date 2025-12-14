@@ -1,5 +1,5 @@
 # Projekt Passwort-Generator
-Dieses Projekt ist ein Passwort-Generator und Passwort-Manager, der sichere Passwörter erstellt, speichert und verwaltet.
+Dieses Projekt ist ein Passwort-Generator und -Manager, der sichere Passwörter erstellt, speichert und verwaltet.
 
 ## Dateiübersicht
 - `hauptfunktionen.py` – enthält alle Hauptfunktionen des Programms
@@ -26,7 +26,7 @@ python menue.py
 ## Menü
 
 ### 1. Neues Passwort erstellen
-   - Benutzer gibt App und Nutzernamen ein
+   - Benutzer gibt die Applikation und Nutzernamen ein
    - Passwortlänge 12-15 Zeichen
    - Auswahl von:
       - Kleinbuchstaben
