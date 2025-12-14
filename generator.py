@@ -5,7 +5,7 @@ import string
 # Parameter:
 #  laenge (int)   : gewünschte Länge des Passworts
 #  lower (bool)   : Kleinbuchstaben verwenden
-#  upper (bool)   : Großbuchstaben verwenden
+#  upper (bool)   : Grossbuchstaben verwenden
 #  digits (bool)  : Zahlen verwenden
 #  special (bool) : Sonderzeichen verwenden
 #  words (bool)   : Wörter aus Wortliste einbauen
@@ -98,5 +98,6 @@ def passwort_starke(pw):
         return "mittel"
     elif punkte >= 4:
         return "stark"
+
 
 
