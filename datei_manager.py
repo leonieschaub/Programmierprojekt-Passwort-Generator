@@ -1,144 +1,119 @@
+import os
+
+# Datei, in der Passwörter gespeichert werden
 DATEI = "passwoerter.txt"
-    
-# Speichert einen neuen Passwort-Eintrag in der Passwortdatei.
-#  Parameter:
-#       applikation (str): Name der Anwendung/Website.
-#       benutzer (str): Benutzername oder E-Mail.
-#        pw (str): Zu speicherndes Passwort.
 
-# Ablauf:
-#        - Öffnet die Datei im Append-Modus.
-#        - Fügt einen neuen Eintrag in der Form 
-#         "Applikation | Benutzer | Passwort" hinzu.
-
-#   Rückgabe:
-#        None
-
+# ==========================
+# Funktion: speichern
+# ==========================
+# Speichert einen neuen Passwort-Eintrag in der Datei.
+# Parameter:
+#   - applikation: Name der Anwendung/Website
+#   - benutzer: Benutzername oder E-Mail
+#   - pw: Passwort
 def speichern(applikation, benutzer, pw):
-    with open(DATEI, "a") as f:
+    # Öffnet die Datei im Anhangmodus und schreibt den neuen Eintrag
+    with open(DATEI, "a", encoding="utf-8") as f:
         f.write(f"{applikation} | {benutzer} | {pw}\n")
 
-
-#Lädt alle gespeicherten Passwörter aus der Datei.
-
-#Ablauf:
-# - Liest jede Zeile der Passwortdatei ein.
-# - Entfernt Zeilenumbrüche.
-# - Gibt eine Liste aller Einträge zurück.
-# - Falls die Datei nicht existiert, wird eine leere Liste zurückgegeben.
-
-#Rückgabe:
-#  list[str]: Liste aller gespeicherten Passwortzeilen.
-
+# ==========================
+# Funktion: lade_passwoerter
+# ==========================
+# Lädt alle gespeicherten Passwörter aus der Datei.
+# Rückgabe: Liste von Einträgen (str)
 def lade_passwoerter():
     try:
-        with open(DATEI, "r") as f:
+        # Datei lesen und Zeilen in Liste speichern
+        with open(DATEI, "r", encoding="utf-8") as f:
             return [line.strip() for line in f.readlines()]
     except FileNotFoundError:
+        # Falls Datei nicht existiert, leere Liste zurückgeben
         return []
 
-
-#Exportiert alle gespeicherten Passwörter als CSV-Datei.
-
-#Ablauf:
-#   - Lädt zuerst alle Passwörter.
-#   - Erstellt eine Datei 'passwoerter.csv'
-#   - Schreibt die Daten in Spalten (Applikation, Benutzer, Passwort)
-#   - Öffnet die CSV-Datei automatisch unter Windows.
-
-#Besonderheiten:
-#   - Falls keine Daten vorhanden sind, wird eine Meldung ausgegeben.
-#   - Die CSV wird mit UTF-8 erstellt.
-# 
-# Rückgabe:
-#   None
-
+# ==========================
+# Funktion: exportiere_csv
+# ==========================
+# Exportiert alle Passwörter als CSV-Datei
 def exportiere_csv():
-    import os
-
+    # Alle Passwörter laden
     daten = lade_passwoerter()
     if not daten:
         print("Keine Passwörter vorhanden.")
         return
 
+    # Speicherort der CSV-Datei ermitteln
     basis = os.path.dirname(os.path.abspath(__file__))
     datei = os.path.join(basis, "passwoerter.csv")
 
+    # CSV-Datei erstellen
     with open(datei, "w", encoding="utf-8") as f:
         f.write("Applikation,Benutzer,Passwort\n")
         for eintrag in daten:
-            applikation, benutzer, pw = eintrag.split(" | ")
+            try:
+                applikation, benutzer, pw = eintrag.split(" | ")
+            except ValueError:
+                # Ungültige Zeilen überspringen
+                continue
             f.write(f"{applikation},{benutzer},{pw}\n")
 
     print("CSV erfolgreich erstellt!")
-    print("Gespeichert unter:")
-    print(datei)
+    print("Gespeichert unter:", datei)
 
-    os.startfile(datei)
+    # Datei unter Windows automatisch öffnen
+    if os.name == 'nt':
+        os.startfile(datei)
 
-#Überschreibt die Passwortdatei mit einer neuen Liste an Daten.
-
-#Parameter:
-# daten (list[str]): Liste der Zeilen, die gespeichert werden sollen.
-
-# Ablauf:
-# - Öffnet die Datei im Schreibmodus (löscht alte Inhalte).
-# - Schreibt alle übergebenen Zeilen neu in die Datei.
-
-#Rückgabe:
-#  None
-
+# ==========================
+# Funktion: alle_speichern
+# ==========================
+# Überschreibt die Passwortdatei mit einer neuen Liste von Einträgen
+# Parameter:
+#   - daten: Liste von Strings im Format "Applikation | Benutzer | Passwort"
 def alle_speichern(daten):
-    with open(DATEI, "w") as f:
+    with open(DATEI, "w", encoding="utf-8") as f:
         for zeile in daten:
             f.write(zeile + "\n")
 
- 
-# Zeigt alle gespeicherten Passwortzeilen an und erlaubt dem Benutzer,
-# einen Eintrag durch Eingabe einer Nummer auszuwählen.
-
-#   Ablauf:
-#       - Lädt alle gespeicherten Passwörter.
-#       - Gibt sie als nummerierte Liste aus.
-#       - Benutzer wählt eine Nummer.
-#       - Eintrag wird in seine Bestandteile aufgeteilt:
-#          (Applikation, Benutzer, Passwort)
-
-#    Fehlerbehandlung:
-#      - Falls keine Einträge existieren -> Rückgabe: (None, None, None, daten)
-#      - Falls eine ungültige Nummer eingegeben wird -> ebenfalls None-Werte.
-
-#  Rückgabe:
-#           (applikation (str | None),
-#            benutzer (str | None),
-#            pw (str | None),
-#            daten (list[str]))  vollständige Datenliste
-
+# ==========================
+# Funktion: eintrag_auswaehlen
+# ==========================
+# Zeigt alle gespeicherten Einträge nummeriert an und gibt den gewählten zurück
+# Parameter:
+#   - pw_anzeigen: bool, ob das Passwort in der Liste sichtbar sein soll
+# Rückgabe:
+#   - applikation (str | None)
+#   - benutzer (str | None)
+#   - pw (str | None)
+#   - daten (list[str])
 def eintrag_auswaehlen(pw_anzeigen=False):
+    # Alle Passwörter laden
     daten = lade_passwoerter()
-
     if not daten:
         print("Keine Einträge vorhanden.")
         return None, None, None, daten
 
+    # Alle Einträge nummeriert ausgeben
     for i, eintrag in enumerate(daten, 1):
-        applikation, benutzer, pw = eintrag.split(" | ")
-
+        try:
+            applikation, benutzer, pw = eintrag.split(" | ")
+        except ValueError:
+            # Ungültige Zeilen überspringen
+            continue
         if pw_anzeigen:
             print(f"{i}) {applikation} | {benutzer} | {pw}")
         else:
             print(f"{i}) {applikation} | {benutzer} | ********")
 
+    # Benutzer wählt einen Eintrag
     try:
         nr = int(input("Nummer auswählen: "))
+        if nr < 1 or nr > len(daten):
+            raise ValueError
         applikation, benutzer, pw = daten[nr - 1].split(" | ")
-
         if pw_anzeigen:
             return applikation, benutzer, pw, daten
         else:
             return applikation, benutzer, None, daten
-
-    except:
+    except (ValueError, IndexError):
         print("Ungültige Auswahl.")
         return None, None, None, daten
-
