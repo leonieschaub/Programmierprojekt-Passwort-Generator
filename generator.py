@@ -1,41 +1,85 @@
 import random
 import string
 
+import random
+import string
+
+# Generiert ein Passwort anhand der angegebenen Kriterien
+# Parameter:
+#  laenge (int)   : gewünschte Länge des Passworts
+#  lower (bool)   : Kleinbuchstaben verwenden
+#  upper (bool)   : Großbuchstaben verwenden
+#  digits (bool)  : Zahlen verwenden
+#  special (bool) : Sonderzeichen verwenden
+#  words (bool)   : Wörter aus Wortliste einbauen
+# Rückgabe:
+#  str : generiertes Passwort
+
 def passwort_generieren(laenge, lower=True, upper=True, digits=True, special=True, words=True):
+    # Basis-Zeichensatz aufbauen
     zeichen = ""
-
     if lower:
-        zeichen += string.ascii_lowercase
+        zeichen += string.ascii_lowercase        # Kleinbuchstaben hinzufügen
     if upper:
-        zeichen += string.ascii_uppercase
+        zeichen += string.ascii_uppercase        # Großbuchstaben hinzufügen
     if digits:
-        zeichen += string.digits
+        zeichen += string.digits                 # Zahlen hinzufügen
     if special:
-        zeichen += string.punctuation
+        # Sonderzeichen ohne '|'
+        zeichen += ''.join(c for c in string.punctuation if c != '|')
 
+    # Wortliste für Wörter-Option
     wortliste = ["sonne", "baum", "haus", "tiger", "mond", "stern", "strasse", "stuhl", "tisch", "wasser"]
 
-    # Prüfen, dass mindestens ein Zeichen vorhanden ist
+    # Prüfen, ob mindestens ein Zeichensatz oder Wörter ausgewählt wurden
     if not zeichen and not words:
-        raise ValueError("Mindestens eine Zeichenoption oder 'words=True' muss ausgewählt werden.")
+        raise ValueError("Keine Zeichen zum Generieren ausgewählt!")
 
-    # Wörter-only Passwort
+    pw = ""
+
+    # Wörter-only Passwort (kein anderes Zeichen erlaubt)
     if words and not zeichen:
-        pw = random.choice(wortliste) + random.choice(wortliste)
-        return pw[:laenge]
+        while len(pw) < laenge:
+            pw += random.choice(wortliste)       # Zufällige Wörter aneinanderhängen
+        return pw[:laenge]                       # Länge genau zuschneiden
+
+    # Kombination aus Wort + normale Zeichen
+    if words and zeichen:
+        while len(pw) < laenge:
+            # 50% Chance, ein Wort oder ein Zeichen zu wählen
+            if random.random() < 0.5:
+                pw += random.choice(wortliste)  # Wort einfügen
+            else:
+                pw += random.choice(zeichen)    # Zeichen einfügen
+        pw = pw.replace('|', '')                 # Sicherstellen, dass '|' nicht vorkommt
+        return pw[:laenge]                       # Länge genau zuschneiden
+
+    # Normale Passwortgenerierung ohne Wörter
+    while len(pw) < laenge:
+        pw += random.choice(zeichen)            # Zufällige Zeichen hinzufügen
+    return pw[:laenge]                          # Länge genau zuschneiden
 
     # Wort + normale Zeichen
-    if words:
-        pw = random.choice(wortliste)
-        # Falls keine normalen Zeichen ausgewählt, nur Wort verwenden
-        if zeichen:
+    if words and zeichen:
+        while True:
+            pw = random.choice(wortliste)
             while len(pw) < laenge:
                 pw += random.choice(zeichen)
-        return pw[:laenge]
+            # Sicherstellen, dass kein '|' im Passwort ist
+            if '|' not in pw:
+                return pw[:laenge]
+            # sonst erneut generieren
+            pw = ""
 
     # Normale Passwortgenerierung
-    return "".join(random.choice(zeichen) for _ in range(laenge))
-
+    if not zeichen:
+        raise ValueError("Keine Zeichen zum Generieren ausgewählt!")
+    
+    # Passwort generieren und '|' ausschließen
+    while True:
+        pw = ''.join(random.choice(zeichen) for _ in range(laenge))
+        if '|' not in pw:
+            return pw
 
 def passwort_starke(pw):
     punkte = 0

@@ -4,14 +4,14 @@ from generator import passwort_generieren, passwort_starke
 
 # NEUES PASSWORT ERSTELLEN
 def neues_passwort():
-    # Applikation abfragen
+    # Applikation abfragen, darf nicht leer sein
     while True:
         applikation = input("Applikation: ").strip()
         if applikation:
             break
         print("Fehler: Applikation darf nicht leer sein.")
 
-    # Benutzer abfragen
+    # Benutzer abfragen, darf nicht leer sein
     while True:
         benutzer = input("Benutzer: ").strip()
         if benutzer:
@@ -24,43 +24,71 @@ def neues_passwort():
             laenge = int(input("Passwortlänge (12-15): "))
             if 12 <= laenge <= 15:
                 break
-            print("Bitte eine Zahl zwischen 12 und 15 eingeben.")
+            else:
+                print("Bitte eine Zahl zwischen 12 und 15 eingeben.")
         except ValueError:
             print("Bitte eine gültige Zahl eingeben.")
 
-    # Passwortoptionen abfragen
-    def frage_option(text):
-        while True:
-            eingabe = input(text + " (j/n): ").lower()
-            if eingabe in ("j", "n"):
-                return eingabe == "j"
-            print("Bitte nur 'j' oder 'n' eingeben.")
+    # Passwortoptionen abfragen und nur 'j' oder 'n' zulassen
+    while True:
+        lower_input = input("Kleinbuchstaben? (j/n): ").lower()
+        if lower_input in ("j", "n"):
+            lower = lower_input == "j"
+            break
+        print("Ungültige Eingabe. Bitte 'j' für Ja oder 'n' für Nein eingeben.")
 
-    lower = frage_option("Kleinbuchstaben?")
-    upper = frage_option("Grossbuchstaben?")
-    digits = frage_option("Zahlen?")
-    special = frage_option("Sonderzeichen?")
-    words = frage_option("Wörter verwenden?")
+    while True:
+        upper_input = input("Grossbuchstaben? (j/n): ").lower()
+        if upper_input in ("j", "n"):
+            upper = upper_input == "j"
+            break
+        print("Ungültige Eingabe. Bitte 'j' für Ja oder 'n' für Nein eingeben.")
 
-    # Prüfen, dass nicht alle Optionen False sind
-    if not any([lower, upper, digits, special, words]):
-        print("Fehler: Mindestens eine Zeichenoption muss ausgewählt werden.\n")
-        return
+    while True:
+        digits_input = input("Zahlen? (j/n): ").lower()
+        if digits_input in ("j", "n"):
+            digits = digits_input == "j"
+            break
+        print("Ungültige Eingabe. Bitte 'j' für Ja oder 'n' für Nein eingeben.")
 
-    # Passwort generieren & Optionen anzeigen
+    while True:
+        special_input = input("Sonderzeichen? (j/n): ").lower()
+        if special_input in ("j", "n"):
+            special = special_input == "j"
+            break
+        print("Ungültige Eingabe. Bitte 'j' für Ja oder 'n' für Nein eingeben.")
+
+    while True:
+        words_input = input("Wörter verwenden? (j/n): ").lower()
+        if words_input in ("j", "n"):
+            words = words_input == "j"
+            break
+        print("Ungültige Eingabe. Bitte 'j' für Ja oder 'n' für Nein eingeben.")
+
+    # Passwort generieren & wiederholen
     while True:
         pw = passwort_generieren(laenge, lower, upper, digits, special, words)
-        print("\nPasswort:", pw)
+        print("\nGeneriertes Passwort:", pw)
         print("Stärke:", passwort_starke(pw))
 
-        wahl = input("(s) speichern, (n) neu generieren, (a) abbrechen: ").lower()
+        # Benutzer wählt Aktion und Eingabe muss 's', 'n' oder 'a' sein
+        while True:
+            wahl = input("(s) speichern, (n) neu generieren, (a) abbrechen: ").lower()
+            if wahl in ("s", "n", "a"):
+                break
+            print("Ungültige Eingabe. Bitte 's', 'n' oder 'a' eingeben.")
+
         if wahl == "s":
             speichern(applikation, benutzer, pw)
             print("Passwort gespeichert.\n")
             break
+        elif wahl == "n":
+            print("Neues Passwort wird generiert...\n")
+            continue
         elif wahl == "a":
             print("Abgebrochen.\n")
             break
+
 
 # PASSWORT ANZEIGEN
 def passwort_anzeigen():
