@@ -47,7 +47,7 @@ python menue.py
   
 ### 4. Passwort ändern
    - Ein neues Passwort wird automatisch generiert
-   - alter Eintrag wird überschrieben
+   - Alter Eintrag wird überschrieben
   
 ### 5. Passwort löschen
    - Eintrag auswählen und löschen
