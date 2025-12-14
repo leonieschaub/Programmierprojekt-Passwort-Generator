@@ -2,7 +2,7 @@
 Dieses Projekt ist ein Passwort-Generator und Passwort-Manager, der sichere Passwörter erstellt, speichert und verwaltet.
 
 ## Dateiübersicht
-- `hauptfunktionen.py` – enthält die Kernfunktionen des Programms
+- `hauptfunktionen.py` – enthält alle Hauptfunktionen des Programms
 - `hauptmenü.py` – Steuerung des Menüs
 - `generator.py` – Passwortgenerierung
 - `datei_manager.py` – Verwaltung der gespeicherten Passwörter
